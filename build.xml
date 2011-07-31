@@ -5,7 +5,7 @@
     <property name="src.dir" value="src"/>
     <property name="test.src.dir" value="test"/>
 
-    <property name="scala.lib.dir" value="lib/scala-lang"/>
+    <property name="scala.lib.dir" value="lib"/>
 
     <!-- paths used for compilation and run  -->
     <path id="lib.path.id">

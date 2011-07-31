@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project name="circuit-breaker" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="dist/build"/>
+    <property name="src.dir" value="src"/>
+    <property name="test.src.dir" value="test"/>
+
+    <property name="scala.lib.dir" value="lib/scala-lang"/>
+
+    <!-- paths used for compilation and run  -->
+    <path id="lib.path.id">
+        <fileset dir="${lib.dir}"/>
+    </path>
+    <path id="run.path.id">
+        <path refid="lib.path.id"/>
+        <path location="${build.dir}"/>
+    </path>
+
+    <target name="initialise">
+        <taskdef name="scalatest" classname="org.scalatest.tools.ScalaTestAntTask">
+            <classpath refid="run.path.id"/>
+        </taskdef>
+
+        <taskdef resource="scala/tools/ant/antlib.xml">
+            <classpath>
+                <fileset dir="${scala.lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+    </target>
+
+    <target name="resolve" description="--> retreive dependencies with ivy">
+        <ivy:retrieve/>
+    </target>
+
+    <target name='build-dir'>
+        <delete dir="${build.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    </target>
+    <target name="build" depends="resolve, initialise, build-dir">
+
+        <scalac srcdir="${src.dir}"
+                destdir="${build.dir}"
+                classpathref="lib.path.id">
+            <include name="**/*.scala"/>
+        </scalac>
+
+        <jar destfile="${build.dir}/${ant.project.name}.jar">
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="test" depends="build">
+        <scalac srcdir="${test.src.dir}"
+                destdir="${build.dir}"
+                classpathref="run.path.id">
+            <include name="**/*.scala"/>
+        </scalac>
+
+        <scalatest>
+            <runpath>
+                <pathelement location="${build.dir}"/>
+                <pathelement location="${build.dir}"/>
+                <fileset dir="${build.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </runpath>
+            <!--<wildcard package="com.glug.mylib"/>-->
+        </scalatest>
+    </target>
+
+    <target name="clean">
+        <ivy:cleancache/>
+    </target>
+
+</project>

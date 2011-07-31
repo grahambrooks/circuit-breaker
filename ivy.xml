@@ -1,0 +1,14 @@
+<ivy-module version="2.0">
+    <info organisation="org.grahambrooks" module="circuit-breaker"/>
+
+    <configurations>
+        <conf name="scala-lang" visibility="private" description="scala compile and library"/>
+    </configurations>
+
+    <dependencies>
+        <dependency org="org.scalatest" name="scalatest_2.9.0" rev="1.6.1" conf="scala-lang->default"/>
+        <dependency org="org.scala-lang" name="scala-compiler" rev="2.9.0-1" conf="scala-lang->default"/>
+        <dependency org="org.scala-lang" name="scala-library" rev="2.9.0-1" conf="scala-lang->default"/>
+        <dependency org="org.scala-lang" name="scalap" rev="2.9.0-1" conf="scala-lang->default"/>
+    </dependencies>
+</ivy-module>

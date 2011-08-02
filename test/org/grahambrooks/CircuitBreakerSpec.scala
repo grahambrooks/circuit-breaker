@@ -12,7 +12,9 @@ class CircuitBreakerSpec extends FlatSpec with ShouldMatchers {
   }
 
   "A Circuit Breaker (when called)" should "delegate to implementation" in {
-    breaker.execute(_ => {true})
+    breaker.execute(() => {
+      true
+    })
     breaker should be('closed)
   }
 }

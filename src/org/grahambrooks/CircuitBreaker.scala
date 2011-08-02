@@ -1,8 +1,8 @@
 package org.grahambrooks
 
 class CircuitBreaker {
-  def execute(function: (Nothing) => Boolean) = {
-
+  def execute(function:() => Boolean) :Boolean = {
+    function()
   }
 
   def closed = true

@@ -1,5 +1,5 @@
 package org.grahambrooks
 
-class StateMachine(initialState: MachineState, states: List[MachineState]) {
+class StateMachine[T](initialState: MachineState[T], states: List[MachineState[T]]) {
 
 }
